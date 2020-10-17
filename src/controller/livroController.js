@@ -55,7 +55,24 @@ const getAllNomeLivro = (req, res) => {
 }
 
 const putLivro = (req, res) => {
+    //pega o id do livro que foi passado por query param
+const id = req.params.id
+   //Filtra o Array de objetos para encontrar o objeto requerido
+const livroASerModificado = livros.find((livro)=> livro.id ==id)
+console.log (livroASerModificado)
 
+  //Pega o corpo da requisição com as alterações
+const livroAtualizado = req.body
+console.log(livroAtualizado)
+
+  //index
+const index = livros.indexOf(livroASerModificado)
+console.log(index)
+
+  //Buscando no array o endereço, excluindo o registro antigo e substituindo pelo novo
+livros.splice(index,1,livroAtualizado)
+console.log(livros)
+res.status(200).send(livros)
 }
 
 const patchLivro = (req, res) => {
