@@ -45,35 +45,49 @@ res.status(200).send(livros)
 
 const getLivrosByGenero = (req,res) => {
     const genero = req.params.genero
-    const livroFiltradoGenero = livros.filter((livro) => livro.genero == genero)
-    res.status(200).send(livroFiltradoGenero)
+    const livroFiltradoGenero = livros.filter((livro) => livro.genero == genero);
+    res.status(200).send(livroFiltradoGenero);
 }
 
 const getAllNomeLivro = (req, res) => {
-    const nomeLivro = livros.map((livro) => livro.nomeDoLivro)
-    res.status(200).send(nomeLivro)
+    const nomeLivro = livros.map((livro) => livro.nomeDoLivro);
+    res.status(200).send(nomeLivro);
 }
 
 const putLivro = (req, res) => {
     //pega o id do livro que foi passado por query param
 const id = req.params.id
+try{
    //Filtra o Array de objetos para encontrar o objeto requerido
-const livroASerModificado = livros.find((livro)=> livro.id ==id)
-console.log (livroASerModificado)
+const livroASerModificado = livros.find((livro)=> livro.id ==id);
+console.log (livroASerModificado);
 
   //Pega o corpo da requisição com as alterações
 const livroAtualizado = req.body
-console.log(livroAtualizado)
+console.log(livroAtualizado);
 
   //index
-const index = livros.indexOf(livroASerModificado)
-console.log(index)
+const index = livros.indexOf(livroASerModificado);
+console.log(index);
 
   //Buscando no array o endereço, excluindo o registro antigo e substituindo pelo novo
-livros.splice(index,1,livroAtualizado)
-console.log(livros)
-res.status(200).send(livros)
-}
+livros.splice(index,1,livroAtualizado);
+console.log(livros);
+
+    fs.writeFile("./src/model/livros.json" , JSON.stringify(livros), 'utf8', function(err) {
+    if (err) {
+    return res.status(424).send({ message:err });
+    }
+    console.log("Arquivo modificado com sucesso");
+    
+});
+
+    res.status(200).send(livros)
+}catch(err) {
+    return res.status(424).send({ message: err}); 
+    };
+};
+
 
 const patchLivro = (req, res) => {
 
