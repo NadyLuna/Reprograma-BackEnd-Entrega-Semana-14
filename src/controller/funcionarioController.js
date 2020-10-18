@@ -22,8 +22,6 @@ const getAllFuncionarios = (req, res) => {
     res.send(funcionarios);
 }
 
- 
-
 module.exports = {
     postFuncionarios,
     getAllFuncionarios
