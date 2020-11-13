@@ -3,7 +3,8 @@ const router = express.Router()
 
 router.get("/", function (req, res) {
 res.status(200).send({
-    title: "Escolha /livros ou /funcionarios para acessar",
+    title: "Bem vindo a nossa Livraria",
+    Message: "Escolha /livros ou /funcionarios para acessar",
     version: "1.0.0"
 });
 });
